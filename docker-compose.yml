@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mlflow:
+    container_name: mlflow
+    restart: always
+    build: ./
+    entrypoint: /app/entry-point.sh
+    environment:
+      - DATABASE_URL=${DATABASE_URL:?err}
+      - ARTIFACT_URL=${ARTIFACT_URL:?err}
+      - MLFLOW_TRACKING_USERNAME=${MLFLOW_TRACKING_USERNAME:?err}
+      - MLFLOW_TRACKING_PASSWORD=${MLFLOW_TRACKING_PASSWORD:?err}
+    ports:
+      - "8001:6000"
+    volumes:
+      - persistent_data:/usr/persistent_data
+
+volumes:
+  persistent_data:

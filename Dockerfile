@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM python:3.10.11-slim-bullseye
 
 COPY ./requirements.txt ./requirements.txt
 
@@ -6,7 +6,9 @@ COPY ./requirements.txt ./requirements.txt
 RUN set -x \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y \
-    python3 python3-pip python3-setuptools python3-dev gcc libffi-dev supervisor gettext-base nginx apache2-utils python3-psycopg2 \
+#    python3 python3-pip python3-setuptools python3-dev gcc libffi-dev \
+    supervisor nginx gettext-base apache2-utils \
+#    python3-psycopg2 \
     && pip3 install --upgrade pip \
     && pip3 install wheel \
     && pip3 install -r requirements.txt \
@@ -25,6 +27,6 @@ COPY ./entry-point.sh /app/entry-point.sh
 COPY ./webserver.sh /app/webserver.sh
 COPY ./mlflow.sh /app/mlflow.sh
 
-CMD ["/bin/bash", "/app/entry-point.sh"]
-
-EXPOSE 6000
+#CMD ["/bin/bash", "/app/entry-point.sh"]
+#
+#EXPOSE 6000

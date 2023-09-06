@@ -12,7 +12,7 @@ http {
     access_log /dev/stdout;
 
     server {
-        listen ${PORT};
+        listen 6000;
         server_name localhost;
         client_max_body_size 20m;
 

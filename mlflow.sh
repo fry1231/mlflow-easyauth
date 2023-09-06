@@ -9,9 +9,6 @@ if [[ -z "${DATABASE_URL}" ]]; then
     export DATABASE_URL="./mlruns"
 fi
 
-# Fix naming convention mismatch between Heroku and mlflow
-DATABASE_URL=${DATABASE_URL//postgres:/postgresql:} 
-
 # Credentials for Google Cloud Storage
 if [[ -z "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
     export GOOGLE_APPLICATION_CREDENTIALS=/app/credentials.json
@@ -26,7 +23,7 @@ fi
 
 
 exec mlflow ui \
-    --backend-store-uri=$DATABASE_URL
+    --backend-store-uri=$DATABASE_URL \
     --serve-artifacts \
     --artifacts-destination=$ARTIFACT_URL \
     --default-artifact-root=$ARTIFACT_URL
